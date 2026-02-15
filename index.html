@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vim 명령어를 퍼즐 게임으로 배우는 도트 스타일 웹 게임">
+    <title>VIM PUZZLE - 빔 퍼즐</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body>
+    <!-- ============================================================
+       TITLE SCREEN
+       ============================================================ -->
+    <div id="title-screen" class="screen active">
+        <div class="title-art">
+            ██╗ ██╗██╗███╗ ███╗
+            ██║ ██║██║████╗ ████║
+            ██║ ██║██║██╔████╔██║
+            ╚██╗ ██╔╝██║██║╚██╔╝██║
+            ╚████╔╝ ██║██║ ╚═╝ ██║
+            ╚═══╝ ╚═╝╚═╝ ╚═╝</div>
+        <div class="title-logo">PUZZLE</div>
+        <div class="title-sub">VIM 명령어 퍼즐 게임</div>
+        <div class="title-prompt">▸ PRESS ANY KEY TO START ◂</div>
+        <div class="title-controls">
+            <button id="btn-start" class="pixel-btn btn-primary">START</button>
+            <button id="btn-sound" class="pixel-btn">♪ ON</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       STAGE SELECT SCREEN
+       ============================================================ -->
+    <div id="stages-screen" class="screen">
+        <div class="level-screen-header">▸ STAGE SELECT ◂</div>
+        <div class="stage-controls-hint">
+            <span class="hint-key">H</span><span class="hint-key">J</span><span class="hint-key">K</span><span
+                class="hint-key">L</span> 이동
+            <span class="hint-sep">│</span>
+            <span class="hint-key">ENTER</span> 선택
+            <span class="hint-sep">│</span>
+            <span class="hint-key">ESC</span> 뒤로
+        </div>
+        <div id="stages-container" class="stages-container"></div>
+        <div style="margin-top:20px">
+            <button class="pixel-btn" onclick="window.app._showScreen('title');window.app.audio.keyPress()">◂
+                BACK</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       LEVEL SELECT SCREEN
+       ============================================================ -->
+    <div id="levels-screen" class="screen">
+        <div class="level-screen-header">▸ LEVEL SELECT ◂</div>
+        <div class="stage-controls-hint">
+            <span class="hint-key">H</span><span class="hint-key">J</span><span class="hint-key">K</span><span
+                class="hint-key">L</span> 이동
+            <span class="hint-sep">│</span>
+            <span class="hint-key">ENTER</span> 선택
+            <span class="hint-sep">│</span>
+            <span class="hint-key">ESC</span> 뒤로
+        </div>
+        <div id="chapters-container" class="chapters-container"></div>
+        <div style="margin-top:20px">
+            <button class="pixel-btn" onclick="window.app._showScreen('stages');window.app.audio.keyPress()">◂
+                BACK</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+       GAME SCREEN
+       ============================================================ -->
+    <div id="game-screen" class="screen">
+        <!-- Top bar -->
+        <div class="game-topbar">
+            <div class="game-level-info">
+                <span id="game-level-num" class="game-level-num">LEVEL 01</span>
+                <span id="game-level-title" class="game-level-title">---</span>
+            </div>
+            <div class="game-topbar-actions">
+                <button id="btn-reset" class="pixel-btn btn-small">↻ RESET</button>
+                <button id="btn-hint" class="pixel-btn btn-small">? HINT</button>
+                <button id="btn-back" class="pixel-btn btn-small">◂ BACK</button>
+            </div>
+        </div>
+
+        <!-- Main game area -->
+        <div class="game-main">
+            <!-- Left: editor -->
+            <div class="game-left">
+                <div class="editor-panel">
+                    <div class="editor-header">
+                        <span>YOUR EDITOR</span>
+                        <span class="mode-display mode-indicator mode-normal">-- NORMAL --</span>
+                    </div>
+                    <div class="editor-body" id="editor-lines"></div>
+                </div>
+                <div class="target-panel editor-panel">
+                    <div class="editor-header">
+                        <span>TARGET (목표)</span>
+                        <span style="color:var(--accent-cyan);font-size:8px">이렇게 만드세요</span>
+                    </div>
+                    <div class="editor-body" id="target-lines"></div>
+                </div>
+            </div>
+
+            <!-- Right: sidebar -->
+            <div class="game-right">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">DESCRIPTION</div>
+                    <div id="level-desc" class="level-description"></div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">MOVES</div>
+                    <div id="moves-display"></div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">COMMANDS</div>
+                    <div id="command-palette"></div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">LOG</div>
+                    <div id="command-log"></div>
+                </div>
+
+                <div id="hint-section" class="sidebar-section hint-section">
+                    <div class="sidebar-title">HINT</div>
+                    <div id="hint-text" class="hint-text"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status bar -->
+        <div class="game-statusbar">
+            <div class="statusbar-left">
+                <span class="mode-display mode-indicator mode-normal">-- NORMAL --</span>
+                <div id="command-line-input" class="command-line-input">
+                    <span class="command-line-text">:</span>
+                    <span class="command-line-cursor">█</span>
+                </div>
+            </div>
+            <div class="statusbar-right">
+                <span>ESC: 일반모드 | R: 리셋 | :: 명령모드</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message overlay -->
+    <div id="message-overlay"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

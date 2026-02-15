@@ -1,0 +1,257 @@
+/* ============================================================
+   Animations CSS - Cursor blink, effects, transitions
+   ============================================================ */
+
+/* Blink */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Title pulse */
+@keyframes titlePulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px var(--accent-green), 0 0 30px rgba(57, 255, 110, 0.3);
+    }
+
+    50% {
+        text-shadow: 0 0 20px var(--accent-green), 0 0 50px rgba(57, 255, 110, 0.5);
+    }
+}
+
+/* Screen shake */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-2px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(2px);
+    }
+}
+
+.shake {
+    animation: shake 0.3s ease;
+}
+
+/* Level clear star burst */
+@keyframes starBurst {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+/* Pixel particles */
+@keyframes pixelFloat {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-60px) translateX(var(--dx, 10px));
+        opacity: 0;
+    }
+}
+
+.pixel-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-green);
+    pointer-events: none;
+    animation: pixelFloat 0.8s ease-out forwards;
+}
+
+/* Glow pulse for success */
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px var(--accent-green);
+    }
+
+    50% {
+        box-shadow: 0 0 20px var(--accent-green), 0 0 40px rgba(57, 255, 110, 0.3);
+    }
+}
+
+.glow-success {
+    animation: glowPulse 1s ease-in-out 3;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in {
+    animation: slideInRight 0.3s ease forwards;
+}
+
+/* Flash effect for wrong command */
+@keyframes flashRed {
+
+    0%,
+    100% {
+        background: transparent;
+    }
+
+    50% {
+        background: rgba(255, 64, 96, 0.1);
+    }
+}
+
+.flash-error {
+    animation: flashRed 0.3s ease;
+}
+
+/* Typing animation for descriptions */
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* CRT turn on effect */
+@keyframes crtOn {
+    0% {
+        transform: scaleY(0.01) scaleX(0.5);
+        filter: brightness(10);
+    }
+
+    20% {
+        transform: scaleY(0.01) scaleX(1);
+        filter: brightness(5);
+    }
+
+    40% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(2);
+    }
+
+    100% {
+        transform: scaleY(1) scaleX(1);
+        filter: brightness(1);
+    }
+}
+
+.crt-on {
+    animation: crtOn 0.4s ease-out;
+}
+
+/* Command key press effect */
+@keyframes keyPop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.key-pop {
+    animation: keyPop 0.15s ease;
+}
+
+/* Dot consumption animation */
+@keyframes dotConsume {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.dot-consuming {
+    animation: dotConsume 0.3s ease forwards;
+}
+
+/* Cursor bar blink for INSERT mode */
+@keyframes cursorBarBlink {
+
+    0%,
+    100% {
+        border-left-color: var(--accent-cyan);
+    }
+
+    50% {
+        border-left-color: transparent;
+    }
+}
